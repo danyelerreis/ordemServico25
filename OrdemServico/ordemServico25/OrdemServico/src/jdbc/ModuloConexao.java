@@ -6,6 +6,7 @@ package jdbc;
 
 import java.sql.DriverManager;
 import javax.swing.JOptionPane;
+import java.sql.Connection;
 
 /**
  *
@@ -13,10 +14,10 @@ import javax.swing.JOptionPane;
  */
 public class ModuloConexao {
         //criando um método ressponável por estabelecer uma conexão com o banco
-    public static java.sql.Connection conectar() {
+    public static Connection conectar() {
         //criando um método ressponável por estabelecer uma conexão com o banco
 
-        java.sql.Connection conexao = null;
+        Connection conexao = null;
         //criando o driver  correspondente ao banco
         String driver = "com.mysql.cj.jdbc.Driver";
         //armazenando informações referente ao banco de dados
@@ -28,7 +29,7 @@ public class ModuloConexao {
             Class.forName(driver);
             conexao = DriverManager.getConnection(url, user, senha);
            
-          JOptionPane.showMessageDialog(null, "Conectado com sucesso!!");
+          //JOptionPane.showMessageDialog(null, "Conectado com sucesso!!");
           //System.out.println(conexao);
             return conexao;
             
