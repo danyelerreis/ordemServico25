@@ -29,14 +29,14 @@ public class ModuloConexao {
             Class.forName(driver);
             conexao = DriverManager.getConnection(url, user, senha);
            
-          //JOptionPane.showMessageDialog(null, "Conectado com sucesso!!");
-          //System.out.println(conexao);
+//          JOptionPane.showMessageDialog(null, "Conectado com sucesso!!");
+//          System.out.println(conexao);
             return conexao;
             
         } catch (Exception e) {
             //a lihna abaixo server de apoio para esclarecer o erro
-            JOptionPane.showMessageDialog(null, "Opss, algo deu errado: " + e);
-            System.out.println(e);
+//            JOptionPane.showMessageDialog(null, "Opss, algo deu errado: " + e);
+//            System.out.println(e);
             return null;
         }
 

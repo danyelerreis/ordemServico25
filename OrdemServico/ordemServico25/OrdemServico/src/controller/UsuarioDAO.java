@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import jdbc.ModuloConexao;
+import view.TelaLogin;
 import view.TelaPrincipal;
 
 /**
@@ -62,6 +63,7 @@ public class UsuarioDAO {
                 //Dados incorretos
 
                 JOptionPane.showMessageDialog(null, "Dados incorretos!");
+                new TelaLogin().setVisible(true);
             }
         } catch (SQLException erro) {
 

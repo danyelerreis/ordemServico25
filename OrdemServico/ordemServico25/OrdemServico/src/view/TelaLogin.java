@@ -6,20 +6,85 @@ package view;
 
 import controller.UsuarioDAO;
 import javax.swing.JOptionPane;
-
+import jdbc.ModuloConexao;
+import java.sql.Connection;
+import java.sql.*;
 /**
  *
  * @author GERAL
  */
 public class TelaLogin extends javax.swing.JFrame {
 
+    Connection conexao = null;
     /**
      * Creates new form TelaLogin
      */
     public TelaLogin() {
         initComponents();
     }
+    /**
+     * Método responsável por exibir o ícone de status da conexão
+     */
+    private void status() {
+        try {
+            conexao = ModuloConexao.conectar();
+            if (conexao != null) {
+                jLblStatus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/dbok.png")));
+            } else {
+                jLblStatus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/dberror.png")));
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        } finally {
+            try {
+                conexao.close();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, ex);
+            }
+        }
+    }
 
+    /**
+     * Método responsável pela autenticação e gestão de perfil do usuário
+     */
+//    private void status() {        
+//        String sql = "select * from tbusuarios where login = ? and senha = md5(?)";
+//        try {
+//           conexao = ModuloConexao.conectar();
+//            pst = conexao.prepareStatement(sql);
+//            pst.setString(1, jTxtUsario.getText());
+//            String captura = new String(jTxtSenha.getPassword());
+//            pst.setString(2, captura);
+//            rs = pst.executeQuery();
+//            if (rs.next()) {
+//                String perfil = rs.getString(6);
+//               if (perfil.equals("admin")) {
+//                    TelaPrincipal principal = new TelaPrincipal();
+//                    principal.setVisible(true);
+//                    TelaPrincipal.menRel.setEnabled(true);
+//                   TelaPrincipal.menCadUsu.setEnabled(true);
+//                   TelaPrincipal.lblUsuario.setText(rs.getString(2));
+//                   TelaPrincipal.lblUsuario.setForeground(Color.red);
+//                    this.dispose();
+//                } else {                    
+//                    TelaPrincipal principal = new TelaPrincipal();
+//                   principal.setVisible(true);
+//                   TelaPrincipal.lblUsuario.setText(rs.getString(2));
+//                    this.dispose();
+//                }
+//            } else {
+//                JOptionPane.showMessageDialog(null, "Usuário e/ou senha inválido(s)");
+//            }
+//        } catch (HeadlessException | SQLException e) {
+//            JOptionPane.showMessageDialog(null, e);
+//        } finally {
+//           try {
+//              conexao.close();
+//            } catch (SQLException ex) {
+//                JOptionPane.showMessageDialog(null, ex);
+//           }
+//        }
+//    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,14 +94,24 @@ public class TelaLogin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jTxtUsuario = new javax.swing.JTextField();
         btnLogin = new javax.swing.JButton();
         jTxtSenha = new javax.swing.JPasswordField();
+        jLabel4 = new javax.swing.JLabel();
+        jLblStatus = new javax.swing.JLabel();
+
+        jLabel3.setText("jLabel3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Login");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel1.setText("Usuário");
@@ -59,42 +134,54 @@ public class TelaLogin extends javax.swing.JFrame {
             }
         });
 
+        jLblStatus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/dberror.png"))); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(49, 49, 49)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addGap(31, 31, 31)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTxtUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
-                    .addComponent(jTxtSenha))
-                .addContainerGap(106, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(38, 38, 38)
+                .addComponent(jLblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnLogin)
-                .addGap(34, 34, 34))
+                .addGap(125, 125, 125))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(55, 55, 55)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTxtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTxtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(72, 72, 72)
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTxtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(jTxtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnLogin)
-                .addContainerGap(102, Short.MAX_VALUE))
+                .addGap(32, 32, 32))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTxtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtUsuarioActionPerformed
@@ -118,9 +205,16 @@ public class TelaLogin extends javax.swing.JFrame {
             
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "erro");
+            jTxtSenha.setText("");
+            jTxtUsuario.setText(null);
+            jTxtUsuario.requestFocus();
         }
 
     }//GEN-LAST:event_btnLoginActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        status();
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments
@@ -161,6 +255,9 @@ public class TelaLogin extends javax.swing.JFrame {
     private javax.swing.JButton btnLogin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLblStatus;
     private javax.swing.JPasswordField jTxtSenha;
     private javax.swing.JTextField jTxtUsuario;
     // End of variables declaration//GEN-END:variables
