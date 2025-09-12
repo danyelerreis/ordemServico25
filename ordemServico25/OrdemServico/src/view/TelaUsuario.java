@@ -60,7 +60,7 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Usuário" }));
 
         jCheckBox1.setText("Alterar a senha ");
         jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
@@ -75,7 +75,7 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/delete.png"))); // NOI18N
 
-        jLabel1.setText("*Id");
+        jLabel1.setText("* Id");
 
         jButton4.setText("Pesquisar");
 
