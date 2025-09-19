@@ -112,6 +112,11 @@ public class TelaLogin extends javax.swing.JFrame {
                 formWindowActivated(evt);
             }
         });
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel1.setText("Usuário");
@@ -131,6 +136,11 @@ public class TelaLogin extends javax.swing.JFrame {
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLoginActionPerformed(evt);
+            }
+        });
+        btnLogin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnLoginKeyPressed(evt);
             }
         });
 
@@ -215,6 +225,33 @@ public class TelaLogin extends javax.swing.JFrame {
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         status();
     }//GEN-LAST:event_formWindowActivated
+
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formKeyPressed
+
+    private void btnLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnLoginKeyPressed
+        try {
+            String usario, senha;
+           
+            usario = jTxtUsuario.getText();
+            senha = jTxtSenha.getText();
+            
+            UsuarioDAO  dao = new UsuarioDAO();
+            
+            
+            dao.efetuaLogin(usario, senha);
+            
+            
+            this.dispose();
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "erro");
+            jTxtSenha.setText("");
+            jTxtUsuario.setText(null);
+            jTxtUsuario.requestFocus();
+        }
+    }//GEN-LAST:event_btnLoginKeyPressed
 
     /**
      * @param args the command line arguments

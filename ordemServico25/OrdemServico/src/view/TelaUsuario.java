@@ -45,7 +45,10 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
 
+        setClosable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setIconifiable(true);
+        setMaximizable(true);
         setTitle("Usuários");
 
         jTextField4.addActionListener(new java.awt.event.ActionListener() {
@@ -60,7 +63,7 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Usuário" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "usuário" }));
 
         jCheckBox1.setText("Alterar a senha ");
         jCheckBox1.addActionListener(new java.awt.event.ActionListener() {

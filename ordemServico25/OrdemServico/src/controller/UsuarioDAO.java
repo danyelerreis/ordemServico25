@@ -1,3 +1,4 @@
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -54,10 +55,13 @@ public class UsuarioDAO {
 
             if (rs.next()) {
                 //Usuario logou
-                TelaPrincipal tela = new TelaPrincipal();
+                String perfil = rs.getString(6);
+                if(perfil.equals("Administrador")){
+                     TelaPrincipal tela = new TelaPrincipal();
                 tela.setVisible(true);
-                
-
+                tela.jMnItmUsuario.setEnabled(true);
+                tela.jMnRelatorio.setEnabled(true);     
+                }
             } else {
 
                 //Dados incorretos
