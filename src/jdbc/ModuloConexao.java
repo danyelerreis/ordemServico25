@@ -7,6 +7,7 @@ package jdbc;
 import java.sql.DriverManager;
 import javax.swing.JOptionPane;
 import java.sql.Connection;
+import java.sql.SQLException;
 
 /**
  *
@@ -39,6 +40,13 @@ public class ModuloConexao {
 //            System.out.println(e);
             return null;
         }
-
+        ///public static java.sql.Connection desconectar(){
+            //java.sql.Connection conexao = null;
+            //try{
+            //conexao.close();
+        //}catch (SQLException e){
+            //JOptionPane.showMessageDialog(null, e);
+        //}
+         //return conexao;
     }
 }
