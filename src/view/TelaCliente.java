@@ -4,17 +4,43 @@
  */
 package view;
 
+import java.sql.*;
+import controller.ClienteDAO;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import model.Cliente;
+
 /**
  *
  * @author GERAL
  */
 public class TelaCliente extends javax.swing.JInternalFrame {
+    Connection conexao;
+    PreparedStatement stm;
+    ResultSet rs;
 
     /**
      * Creates new form TelaCliente
      */
     public TelaCliente() {
         initComponents();
+    }
+    public void listar(){
+        ClienteDAO dao = new ClienteDAO();
+        
+        List<Cliente> lista = dao.listarCliente();
+        DefaultTableModel dados = (DefaultTableModel)tblClientes.getModel();
+        dados.setNumRows(0);
+        
+        for (Cliente c:lista){
+            dados.addRow(new Object[]{
+                c.getId(),
+                c.getNome(),
+                c.getEndereco(),
+                c.getFone(),
+                c.getEmail(),});
+        }
+        
     }
 
     /**
@@ -30,7 +56,7 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblClientes = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -57,7 +83,7 @@ public class TelaCliente extends javax.swing.JInternalFrame {
 
         jLabel2.setText("* Campos obrigatórios");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -68,7 +94,7 @@ public class TelaCliente extends javax.swing.JInternalFrame {
                 "id", "nome", "endereço", "fone", "email"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblClientes);
 
         jLabel3.setText("Id Cliente ");
 
@@ -191,12 +217,12 @@ public class TelaCliente extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
+    private javax.swing.JTable tblClientes;
     // End of variables declaration//GEN-END:variables
 }
