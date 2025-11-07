@@ -11,7 +11,6 @@ import javax.swing.JOptionPane;
 import jdbc.ModuloConexao;
 import model.Cliente;
 import java.awt.HeadlessException;
-import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -39,6 +38,36 @@ public class ClienteDAO {
 
             //2 passo - criar o sql , organizar e executar.
             String sql = "select * from tbclientes";
+            PreparedStatement stmt = conexao.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Cliente obj = new Cliente();
+
+                obj.setId(rs.getInt("idcli"));
+                obj.setNome(rs.getString("nomecli"));
+                obj.setEndereco(rs.getString("endcli"));
+                obj.setFone(rs.getString("fonecli"));
+                obj.setEmail(rs.getString("emailcli"));
+                lista.add(obj);
+            }
+
+            return lista;
+
+        } catch (SQLException erro) {
+
+            JOptionPane.showMessageDialog(null, "Erro :" + erro);
+            return null;
+        }
+    }
+        public List<Cliente> listarClienteNome() {
+        try {
+
+            //1 passo criar a lista
+            List<Cliente> lista = new ArrayList<>();
+
+            //2 passo - criar o sql , organizar e executar.
+            String sql = "select idcli as id, nomecli as nome, endcli as endereço, fonecli as fone, emailcli as email from tbclientes where nomecli like ?";
             PreparedStatement stmt = conexao.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
 
