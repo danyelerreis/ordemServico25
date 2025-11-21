@@ -10,6 +10,7 @@ import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import model.Cliente;
 
+
 /**
  *
  * @author GERAL
@@ -301,13 +302,13 @@ public class TelaCliente extends javax.swing.JInternalFrame {
           dados.setNumRows(0);
           
           for(Cliente c: lista){
-              dados.addRow(new Object[]){
-              c.getId(),
-              c.getNome(),
-              c.getEndereco(),
-              c.getFone(),
-              c.getEmail(),});
-          }
+               dados.addRow(new Object[]{
+                c.getId(),
+                c.getNome(),
+                c.getEndereco(),
+                c.getFone(),
+                c.getEmail(),});
+        }
   
 
          

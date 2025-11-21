@@ -60,7 +60,7 @@ public class ClienteDAO {
             return null;
         }
     }
-        public List<Cliente> listarClienteNome() {
+        public List<Cliente> listarClienteNome(String nome) {
         try {
 
             //1 passo criar a lista
@@ -69,16 +69,17 @@ public class ClienteDAO {
             //2 passo - criar o sql , organizar e executar.
             String sql = "select idcli as id, nomecli as nome, endcli as endereço, fonecli as fone, emailcli as email from tbclientes where nomecli like ?";
             PreparedStatement stmt = conexao.prepareStatement(sql);
+            stmt.setString(1,nome);
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 Cliente obj = new Cliente();
 
-                obj.setId(rs.getInt("idcli"));
-                obj.setNome(rs.getString("nomecli"));
-                obj.setEndereco(rs.getString("endcli"));
-                obj.setFone(rs.getString("fonecli"));
-                obj.setEmail(rs.getString("emailcli"));
+                obj.setId(rs.getInt("id"));
+                obj.setNome(rs.getString("nome"));
+                obj.setEndereco(rs.getString("endereço"));
+                obj.setFone(rs.getString("fone"));
+                obj.setEmail(rs.getString("email"));
                 lista.add(obj);
             }
 
@@ -96,14 +97,14 @@ public class ClienteDAO {
 
         try {
             //1 passo - criar o sql
-            String sql = "insert into tbclientes(nome, email, endereco, fone) values(?,?,?,?,?)";
+            String sql = "insert into tbclientes(nome, email, endereco, fone) values(?,?,?,?)";
             //2 passo o conectar o banco de dados e organizar o comando sql
             conexao= ModuloConexao.conectar();
             PreparedStatement stmt = conexao.prepareStatement(sql);
-            stmt.setString(2, obj.getNome());
-            stmt.setString(3, obj.getEmail());
-            stmt.setString(4, obj.getEndereco());
-            stmt.setString(5, obj.getFone());
+            stmt.setString(1, obj.getNome());
+            stmt.setString(2, obj.getEmail());
+            stmt.setString(3, obj.getEndereco());
+            stmt.setString(4, obj.getFone());
 
             //3 passo - executar o comando sql
             stmt.execute();

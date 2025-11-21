@@ -136,6 +136,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMnItmServico.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jMnItmServico.setText("Ordem Serviço");
+        jMnItmServico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMnItmServicoActionPerformed(evt);
+            }
+        });
         jMnCadastro.add(jMnItmServico);
 
         jMnItmUsuario.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.CTRL_DOWN_MASK));
@@ -278,6 +283,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jDesktopPane1.add(cliente);
         
     }//GEN-LAST:event_jMnltmClienteActionPerformed
+
+    private void jMnItmServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMnItmServicoActionPerformed
+        TelaOS tela = new TelaOS();
+        tela.setVisible(true);
+        jDesktopPane1.add(tela);
+    }//GEN-LAST:event_jMnItmServicoActionPerformed
 
     /**
      * @param args the command line arguments
